@@ -2,7 +2,11 @@
   "hosting": {
     "target": "projects",
     "public": "dist/apps/projects/browser",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "headers": [
       {
         "source": "**",
