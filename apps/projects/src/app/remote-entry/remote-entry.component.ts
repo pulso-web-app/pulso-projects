@@ -3,11 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'pulso-projects-remote-entry',
   standalone: true,
-  template: `
-    <section>
-      <h1>Projects</h1>
-      <p>Projects Remote carregado com sucesso.</p>
-    </section>
-  `,
+  templateUrl: './remote-entry.component.html',
+  styleUrl: './remote-entry.component.scss',
 })
-export class ProjectsRemoteEntryComponent { }
+export class ProjectsRemoteEntryComponent {}

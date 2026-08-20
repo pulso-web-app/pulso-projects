@@ -1,1 +1,5 @@
-<router-outlet />
+<pulso-projects-loading-overlay [visible]="loading()" />
+<router-outlet
+	(activate)="loading.set(false)"
+	(deactivate)="loading.set(true)"
+/>
