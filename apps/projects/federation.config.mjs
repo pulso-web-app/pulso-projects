@@ -26,6 +26,13 @@ export default withNativeFederation({
             build: 'package',
             includeSecondaries: { keepAll: true },
           },
+          '@angular/common': {
+            singleton: true,
+            strictVersion: true,
+            requiredVersion: 'auto',
+            build: 'package',
+            includeSecondaries: { keepAll: true },
+          },
         },
       },
     ),
