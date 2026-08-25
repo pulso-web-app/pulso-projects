@@ -1,101 +1,99 @@
-# PulsoProjects
+# Pulso Projects
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Pulso Projects is the project-management remote for the Pulso web application. It is an independent Angular 22 and Nx 23 workspace, exposed through Native Federation and deployable separately from the host.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Current status
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+This repository is intentionally at scaffold stage. It currently provides:
 
-## Run tasks
+- An Angular application bootstrap.
+- A router outlet for future routed features.
+- A loading overlay used during application startup.
+- A Native Federation remote named `projects` that exposes `./Routes`.
 
-To run the dev server for your app, use:
+The exposed route list is currently empty. Project lists, details, editing, persistence, permissions, and domain rules are not implemented. Documentation and tests must continue to distinguish this current behavior from intended future product capabilities.
 
-```sh
-npx nx serve projects
-```
+## Federation contract
 
-To create a production bundle:
+- Remote name: `projects`.
+- Exposed module: `./Routes`.
+- Standalone development URL: <http://localhost:4202>.
+- Host route: <http://localhost:4200/projects>.
 
-```sh
-npx nx build projects
-```
+Any change to the name, exposure, bootstrap, or top-level route is a cross-repository contract change with `pulso-shell`.
 
-To see all available targets to run for a project, run:
+## Prerequisites
 
-```sh
-npx nx show project projects
-```
+- Git and npm.
+- Node.js `^22.22.3`, `^24.15.0`, or `^26.0.0`.
+- Playwright browsers for E2E: `npm exec playwright install`.
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## Recommended integrated setup
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+1. Clone [`pulso-tooling`](https://github.com/pulso-web-app/pulso-tooling) beside the Pulso application repositories.
+2. Run `npm ci` in `pulso-tooling`.
+3. Run `npm run setup`, then `npm run doctor`.
+4. Run `npm run open` to open the multi-root VS Code workspace.
+5. Start `Pulso: dev all` from **Terminal → Run Task**.
+6. Open <http://localhost:4200/projects> after authenticating through the shell.
 
-## Add new projects
+## Standalone setup
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+1. Clone this repository.
+2. Run `npm ci`.
+3. Run `npm run dev`.
+4. Open <http://localhost:4202>.
 
-Use the plugin's generator to create new projects.
+Standalone mode validates the remote bootstrap and loading experience. Use integrated mode whenever the exposed route contract or host interaction changes.
 
-To generate a new application, use:
+## Commands
 
-```sh
-npx nx g @nx/angular:app demo
-```
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Serve Projects on port 4202. |
+| `npm run build` | Create a production build. |
+| `npm run lint` | Run ESLint. |
+| `npm test` | Run Vitest once. |
+| `npm run test:watch` | Run unit tests in watch mode. |
+| `npm run e2e` | Run Playwright against standalone Projects. |
+| `npm run format` | Apply Nx formatting. |
+| `npm run format:check` | Check formatting without writing. |
+| `npm run docs:check` | Lint authored Markdown. |
+| `npm run spec:validate` | Strictly validate all OpenSpec artifacts. |
+| `npm run spec:update` | Refresh OpenSpec-managed agent integrations. |
+| `npm run check` | Run docs, specs, lint, unit tests, and production build. |
+| `npm run graph` | Open the Nx project graph. |
 
-To generate a new library, use:
+## Adding the first features
 
-```sh
-npx nx g @nx/angular:lib mylib
-```
+Feature structure should be introduced only with approved behavior. A new capability should define its domain ownership, route, state, data source, loading, empty, success, failure, and authorization assumptions in OpenSpec before architectural layers are added.
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+Do not create broad shared modules or speculative persistence abstractions simply to prepare for unknown future work.
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Testing
 
-## Set up CI!
+Vitest covers isolated application behavior, and Playwright validates the standalone loading and browser experience. Install the browser once with `npm exec playwright install`.
 
-### Step 1
+Preserve accessible loading feedback and deterministic tests. For route, bootstrap, or federation changes, run all three apps and confirm that authenticated navigation through <http://localhost:4200/projects> loads the remote without console or federation errors.
 
-To connect to Nx Cloud, run the following command:
+## Spec-driven and agent-assisted work
 
-```sh
-npx nx connect
-```
+`AGENTS.md` is authoritative, with scoped application rules below `apps/projects/src/app`. The canonical `pulso-projects-feature` Skill is under `.agents/skills`; `pulso-tooling` mirrors it for Claude and Copilot.
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+Meaningful work follows explore, propose, human review, apply, strict validation, repository checks, and archive. Cross-repository changes share one kebab-case ID with the tooling umbrella and every affected repository.
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## CI and deployment
 
-### Step 2
+Firebase workflows validate documentation and OpenSpec before lint, unit tests, and the production build. Pull requests use Hosting preview channels; the main branch targets the configured live Projects site.
 
-Use the following command to configure a CI workflow for your workspace:
+Deployment, hosting, secrets, and environment changes require explicit approval.
 
-```sh
-npx nx g ci-workflow
-```
+## Troubleshooting
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- **The shell cannot load Projects:** verify port 4202, `remoteEntry.json`, remote name `projects`, and the `./Routes` exposure.
+- **The page only shows the scaffold:** that is the current product maturity; confirm an approved feature specification exists before adding behavior.
+- **Nx is unavailable:** run `npm ci` and use repository-local scripts.
+- **Playwright has no browser:** run `npm exec playwright install`.
+- **Nx Console targets another repository:** use the multi-root `Pulso:` tasks for normal workflows.
 
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/architecture.md](docs/architecture.md).

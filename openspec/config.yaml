@@ -1,0 +1,23 @@
+schema: spec-driven
+
+context: |
+  Language: English
+  All artifacts must be written in English.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+  Repository: pulso-projects, an Angular 22 / Nx 23 Native Federation remote served on port 4202.
+  Responsibilities: future project-management behavior and the current loading/router scaffold.
+  Current maturity: the remote exposes an empty ./Routes contract and does not yet implement project features or persistence.
+  Federation contract: remote name projects exposing ./Routes to pulso-shell.
+  Quality gate: npm run check; route-contract changes also require shell integration verification.
+  Boundaries: grow architecture from approved behavior, not speculative abstractions.
+githubCopilot:
+  cloudAgent: false
+rules:
+  proposal:
+    - Separate implemented behavior from intended behavior and state non-goals.
+  tasks:
+    - Include loading, accessibility, documentation, tests, and integration validation as applicable.
+operations:
+  apply:
+    guidance:
+      - Introduce only the smallest coherent feature boundary required by the approved change.
