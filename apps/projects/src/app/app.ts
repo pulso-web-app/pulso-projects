@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoadingOverlayComponent } from './shared/loading-overlay.component';
+import { LoadingOverlayComponent } from '@pulso-projects/shared-ui';
 
 @Component({
   selector: 'pulso-projects-root',

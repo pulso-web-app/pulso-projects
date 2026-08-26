@@ -1,4 +1,7 @@
-import { withNativeFederation, shareAll } from '@angular-architects/native-federation/config';
+import {
+  withNativeFederation,
+  shareAll,
+} from '@angular-architects/native-federation/config';
 
 export default withNativeFederation({
   name: 'projects',
@@ -50,9 +53,6 @@ export default withNativeFederation({
   // https://shorturl.at/jmzH0
 
   features: {
-    // ignoreUnusedDeps is enabled by default now
-    // ignoreUnusedDeps: true,
-
     // Opt-in: groups chunks in remoteEntry.json for smaller metadata file
     denseChunking: true,
   },

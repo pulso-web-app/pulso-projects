@@ -10,8 +10,9 @@ This repository is intentionally at scaffold stage. It currently provides:
 - A router outlet for future routed features.
 - A loading overlay used during application startup.
 - A Native Federation remote named `projects` that exposes `./Routes`.
+- A feature-first placeholder project that owns the current default route.
 
-The exposed route list is currently empty. Project lists, details, editing, persistence, permissions, and domain rules are not implemented. Documentation and tests must continue to distinguish this current behavior from intended future product capabilities.
+The exposed route list currently renders an explicit placeholder screen. Project lists, details, editing, persistence, permissions, and domain rules are not implemented. Documentation and tests must continue to distinguish this current behavior from intended future product capabilities.
 
 ## Federation contract
 
@@ -48,27 +49,28 @@ Standalone mode validates the remote bootstrap and loading experience. Use integ
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Serve Projects on port 4202. |
-| `npm run build` | Create a production build. |
-| `npm run lint` | Run ESLint. |
-| `npm test` | Run Vitest once. |
-| `npm run test:watch` | Run unit tests in watch mode. |
-| `npm run e2e` | Run Playwright against standalone Projects. |
-| `npm run format` | Apply Nx formatting. |
-| `npm run format:check` | Check formatting without writing. |
-| `npm run docs:check` | Lint authored Markdown. |
-| `npm run spec:validate` | Strictly validate all OpenSpec artifacts. |
-| `npm run spec:update` | Refresh OpenSpec-managed agent integrations. |
-| `npm run check` | Run docs, specs, lint, unit tests, and production build. |
-| `npm run graph` | Open the Nx project graph. |
+| Command                 | Purpose                                                          |
+| ----------------------- | ---------------------------------------------------------------- |
+| `npm run dev`           | Serve Projects on port 4202.                                     |
+| `npm run build`         | Create a production build.                                       |
+| `npm run lint`          | Run ESLint.                                                      |
+| `npm test`              | Run Vitest once.                                                 |
+| `npm run test:watch`    | Run unit tests in watch mode.                                    |
+| `npm run e2e`           | Run Playwright against standalone Projects.                      |
+| `npm run format`        | Apply Nx formatting.                                             |
+| `npm run format:check`  | Check formatting without writing.                                |
+| `npm run docs:check`    | Lint authored Markdown.                                          |
+| `npm run spec:validate` | Strictly validate all OpenSpec artifacts.                        |
+| `npm run spec:update`   | Refresh OpenSpec-managed agent integrations.                     |
+| `npm run check`         | Run docs, specs, lint, unit tests, and production build.         |
+| `npm run graph`         | Open the Nx project graph.                                       |
+| `npm run affected`      | Lint, test, and build projects affected by the current Git diff. |
 
 ## Adding the first features
 
-Feature structure should be introduced only with approved behavior. A new capability should define its domain ownership, route, state, data source, loading, empty, success, failure, and authorization assumptions in OpenSpec before architectural layers are added.
+The app is now a thin composition project. `projects-feature-placeholder` owns the current route and screen, while `shared-ui` owns domain-neutral loading feedback. New approved capabilities should replace the placeholder with intentionally named feature-first Nx projects and define domain ownership, route, state, data source, loading, empty, success, failure, and authorization assumptions.
 
-Do not create broad shared modules or speculative persistence abstractions simply to prepare for unknown future work.
+Cross-project imports use `@pulso-projects/*` public APIs and Nx tags enforce dependency direction. Do not create broad shared modules, speculative persistence layers, or a new MFE for every screen.
 
 ## Testing
 

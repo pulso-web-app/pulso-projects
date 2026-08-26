@@ -15,6 +15,10 @@ This Angular/Nx repository is the Projects Native Federation remote. It currentl
 ## Architecture Boundaries
 
 - Projects owns future project-management domain and UI behavior.
+- Keep `apps/projects` as a thin bootstrap/federation adapter and add approved behavior as feature-first Nx projects under `libs/<capability>/<type>`.
+- Replace the explicit placeholder project as real capabilities arrive; do not let it become a catch-all.
+- Import Nx projects only through `@pulso-projects/*` public entry points and preserve the enforced scope/type dependency direction.
+- Create domain/data-access projects and new microfrontends only when concrete ownership or runtime boundaries justify them.
 - The remote exposes `./Routes`; coordinate contract changes with `pulso-shell`.
 - Do not import sibling repository application code or place product behavior in the shell.
 - Introduce feature boundaries deliberately as real behavior is added.
@@ -26,6 +30,7 @@ This Angular/Nx repository is the Projects Native Federation remote. It currentl
 - `npm run e2e` — run standalone Playwright tests.
 - `npm run check` — documentation, specifications, lint, unit tests, and production build.
 - `npm run spec:validate` — strict OpenSpec validation.
+- `npm run affected` — run lint, tests, and builds only for projects affected by the current Git diff.
 
 ## Spec-Driven Development
 

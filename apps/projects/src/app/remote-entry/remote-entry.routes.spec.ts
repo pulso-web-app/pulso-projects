@@ -1,4 +1,4 @@
-import { ProjectsPlaceholderComponent } from '../features/projects-placeholder/projects-placeholder.component';
+import { ProjectsPlaceholderComponent } from '@pulso-projects/projects-feature-placeholder';
 import { PROJECTS_ROUTES } from './remote-entry.routes';
 
 describe('PROJECTS_ROUTES', () => {

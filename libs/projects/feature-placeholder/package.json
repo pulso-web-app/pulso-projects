@@ -1,0 +1,9 @@
+{
+  "name": "@pulso-projects/projects-feature-placeholder",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^22.1.0",
+    "@angular/router": "^22.1.0"
+  },
+  "sideEffects": false
+}

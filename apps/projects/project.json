@@ -4,10 +4,11 @@
   "projectType": "application",
   "prefix": "pulso-projects",
   "sourceRoot": "apps/projects/src",
-  "tags": [],
+  "tags": ["scope:projects", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular-architects/native-federation:build",
+      "dependsOn": ["^build"],
       "options": {
         "cacheExternalArtifacts": true
       },

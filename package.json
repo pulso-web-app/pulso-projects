@@ -5,17 +5,18 @@
   "scripts": {
     "dev": "nx serve projects",
     "build": "nx build projects",
-    "lint": "nx lint projects",
-    "test": "nx test projects",
+    "lint": "nx run-many -t lint",
+    "test": "nx run-many -t test",
     "test:watch": "nx test projects --watch",
     "e2e": "nx e2e projects-e2e",
     "format": "nx format:write",
     "format:check": "nx format:check",
-    "docs:check": "markdownlint-cli2 README.md AGENTS.md CONTRIBUTING.md CLAUDE.md \"docs/**/*.md\" \"apps/**/AGENTS.md\" \".github/*.md\" \".agents/skills/pulso-*/**/*.md\"",
+    "docs:check": "markdownlint-cli2 README.md AGENTS.md CONTRIBUTING.md CLAUDE.md \"docs/**/*.md\" \"apps/**/AGENTS.md\" \"libs/**/AGENTS.md\" \".github/*.md\" \".agents/skills/pulso-*/**/*.md\"",
     "spec:validate": "openspec validate --all --strict --no-interactive",
     "spec:update": "openspec update",
     "check": "npm run docs:check && npm run spec:validate && npm run lint && npm test && npm run build",
-    "graph": "nx graph"
+    "graph": "nx graph",
+    "affected": "nx affected -t lint,test,build"
   },
   "private": true,
   "engines": {
@@ -63,7 +64,9 @@
     "eslint-plugin-playwright": "^1.6.2",
     "firebase-tools": "^15.27.0",
     "jsdom": "^27.1.0",
+    "jsonc-eslint-parser": "^2.1.0",
     "markdownlint-cli2": "0.23.2",
+    "ng-packagr": "~22.0.0",
     "nx": "23.1.1",
     "prettier": "~3.6.2",
     "tslib": "^2.3.0",

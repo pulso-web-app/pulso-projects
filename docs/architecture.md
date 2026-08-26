@@ -2,34 +2,43 @@
 
 ## System role
 
-Pulso Projects is an independently built and deployed Native Federation remote. During development it runs on port 4202, exposes `./Routes`, and is mounted by the authenticated shell below `/projects`.
+Pulso Projects is an independently built and deployed Native Federation remote. It runs on port 4202 during development, exposes `./Routes`, and is mounted below the shell's protected `/projects` route.
 
-## Current application shape
+The repository is the future Projects team, deployment, dependency, and CI boundary. Nx projects are smaller internal ownership, dependency, test, build, and cache boundaries. A routed feature does not automatically require another microfrontend.
 
-The application currently consists of the Angular bootstrap, a router outlet, an accessible loading overlay, and an empty remote route list. It has no implemented project domain, data-access layer, persistence, or product screens.
+## Feature-first project map
 
-This small shape is intentional. New architecture must follow approved product behavior rather than predict it.
+```text
+apps/
+  projects/                      # bootstrap and federation adapter
+  projects-e2e/                  # remote-level browser behavior
+libs/
+  projects/
+    feature-placeholder/         # current placeholder route and screen
+  shared/
+    ui/                          # accessible startup feedback
+```
 
-## Future feature boundaries
+The remote now exposes a real placeholder route from `@pulso-projects/projects-feature-placeholder`; it is no longer an empty route list. The explicit project name records current maturity: project lists, details, editing, persistence, permissions, and domain rules are still not implemented.
 
-A real feature should define:
+## Evolution rules
 
-- The domain concepts and invariants it owns.
-- Routed screens and their navigation contract.
-- State ownership and external data boundary.
-- Loading, empty, success, validation, and failure behavior.
-- Authentication or authorization assumptions inherited from the shell.
+Replace the placeholder with intentionally named capabilities as approved behavior arrives. Begin with the smallest coherent feature library. Add `domain` only for concrete business rules and add `data-access` only for real state or integrations. Avoid a permanent catch-all feature and speculative shared abstractions.
 
-Only then should the repository introduce feature, domain, or data-access folders appropriate to that behavior.
+The application project remains a thin composition root. Imports cross project boundaries only through `@pulso-projects/*` public APIs. Nx tags enforce that applications compose features and that future lower-level domain, data-access, and UI projects cannot depend back on features.
 
 ## Federation boundary
 
-The shell owns the protected `/projects` mount point. Projects owns the route list and product behavior inside the remote. Remote name, `./Routes` exposure, bootstrap expectations, ports, and manifest endpoints are integration contracts.
+The shell owns authentication and the protected mount point. Projects owns routes and behavior inside it. Remote name, `./Routes`, bootstrap expectations, port, and manifest endpoint are public contracts. A future MFE split needs an independent runtime ownership and deployment reason, not merely a new page.
+
+## Why Nx is material here
+
+Even at scaffold stage, the graph distinguishes bootstrap, placeholder capability, shared UI, and E2E behavior. Repository scripts cover all projects, builds traverse dependencies, targets are cacheable, `nx affected` can select impacted work, and lint rules prevent invalid dependencies as the product grows.
+
+Native Federation remains responsible for runtime composition; Nx is responsible for the repository's source and task graph.
 
 ## Testing and delivery
 
-Vitest covers isolated behavior and Playwright verifies the standalone browser experience. Contract changes also require an integrated shell smoke test. Firebase Hosting workflows create pull-request previews and main-branch deployments after the quality gates.
+Vitest covers project boundaries and Playwright validates standalone browser behavior. Route-contract changes also require a shell smoke test. Firebase workflows call public repository scripts so new libraries automatically enter quality gates.
 
-## Repository independence
-
-Projects retains its own Nx configuration, package lock, dependencies, cache, CI, and hosting target. It must not import application source from sibling repositories.
+Projects retains its own Nx configuration, package lock, dependencies, cache, CI, and hosting target and does not import source code from sibling repositories.

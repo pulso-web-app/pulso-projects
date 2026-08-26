@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": false,
-    "paths": {}
+    "paths": {
+      "@pulso-projects/projects-feature-placeholder": [
+        "./libs/projects/feature-placeholder/src/index.ts"
+      ],
+      "@pulso-projects/shared-ui": ["./libs/shared/ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
