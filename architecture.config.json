@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "appScope": "projects",
+  "capabilities": {
+    "projects": { "dependsOn": ["shared"] },
+    "shared": { "dependsOn": [] }
+  }
+}

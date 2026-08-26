@@ -27,9 +27,13 @@ Replace the placeholder with intentionally named capabilities as approved behavi
 
 The application project remains a thin composition root. Imports cross project boundaries only through `@pulso-projects/*` public APIs. Nx tags enforce that applications compose features and that future lower-level domain, data-access, and UI projects cannot depend back on features.
 
+Capability permissions live in `architecture.config.json` and are converted into ESLint module-boundary constraints. Use the Tooling feature generator for vertical slices or a real new capability, and its library generator only for a coherent lower-level boundary.
+
 ## Federation boundary
 
 The shell owns authentication and the protected mount point. Projects owns routes and behavior inside it. Remote name, `./Routes`, bootstrap expectations, port, and manifest endpoint are public contracts. A future MFE split needs an independent runtime ownership and deployment reason, not merely a new page.
+
+The exposed module provides the common `REMOTE_ROUTES` contract. `PROJECTS_ROUTES` remains an identity-compatible alias for existing consumers.
 
 ## Why Nx is material here
 

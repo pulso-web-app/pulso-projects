@@ -19,6 +19,8 @@ Use a reviewed OpenSpec change for non-trivial behavior. Cross-repository work u
 
 Avoid speculative abstractions, unrelated refactors, and broad formatting changes. Never commit credentials, tokens, customer data, or unapproved environment configuration.
 
+Prefer `Pulso: Create Feature Here` for vertical slices or a real new capability and `Pulso: Create Library Here` only for a justified Nx boundary. Capability dependencies belong in `architecture.config.json`, not duplicated ESLint rules.
+
 ## Pull requests
 
 State clearly what became implemented and what remains a scaffold. Link the OpenSpec change, include UI evidence where applicable, and document federation, data, hosting, and rollback considerations.

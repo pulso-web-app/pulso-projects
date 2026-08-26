@@ -72,6 +72,8 @@ The app is now a thin composition project. `projects-feature-placeholder` owns t
 
 Cross-project imports use `@pulso-projects/*` public APIs and Nx tags enforce dependency direction. Do not create broad shared modules, speculative persistence layers, or a new MFE for every screen.
 
+From the multi-root workspace, use **Pulso: Create Feature Here** for a vertical slice or new capability and **Pulso: Create Library Here** for a justified domain, data-access, UI, or util boundary. The commands update `architecture.config.json` and public aliases automatically.
+
 ## Testing
 
 Vitest covers isolated application behavior, and Playwright validates the standalone loading and browser experience. Install the browser once with `npm exec playwright install`.

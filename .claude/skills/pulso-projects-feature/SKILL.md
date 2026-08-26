@@ -14,4 +14,6 @@ description: Grow the Pulso Projects remote from its current scaffold through sp
 7. Add focused project tests, run the remote on port 4202, and test through shell port 4200 when the public route contract changes.
 8. Run `npm run check` and document maturity, graph, federation, UI, data, and deployment impact.
 
+Use `Pulso: Create Feature Here` to create a vertical slice or a genuinely new capability. Use `Pulso: Create Library Here` only for a coherent lower-level boundary, and update capability dependencies through `architecture.config.json` rather than hard-coded ESLint scope rules.
+
 Do not claim scaffolded behavior is complete, introduce secrets, or deploy.

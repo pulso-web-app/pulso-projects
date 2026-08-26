@@ -22,6 +22,8 @@ This Angular/Nx repository is the Projects Native Federation remote. It currentl
 - The remote exposes `./Routes`; coordinate contract changes with `pulso-shell`.
 - Do not import sibling repository application code or place product behavior in the shell.
 - Introduce feature boundaries deliberately as real behavior is added.
+- Register capabilities in `architecture.config.json`; scope constraints are derived and must not be duplicated manually in ESLint.
+- Export new federation consumers through `REMOTE_ROUTES` while preserving `PROJECTS_ROUTES` compatibility.
 
 ## Commands
 
