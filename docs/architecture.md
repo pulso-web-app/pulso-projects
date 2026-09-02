@@ -29,6 +29,12 @@ The application project remains a thin composition root. Imports cross project b
 
 Capability permissions live in `architecture.config.json` and are converted into ESLint module-boundary constraints. Use the Tooling feature generator for vertical slices or a real new capability, and its library generator only for a coherent lower-level boundary.
 
+## Shared persistence contract
+
+Future project records live at `projects/{projectId}` in the common Firestore database. Descendants inherit shared access for every authenticated account. Do not create business collections under `users/{uid}` or filter projects by the signed-in user. Contact relationships refer to root `contacts/{contactId}` records.
+
+Shell owns authentication, rules, and indexes; Projects will own its schema and data access when those features are implemented. No project persistence or CRUD is implemented by this contract update. See [the shared application data map](../../pulso-tooling/docs/shared-data.md).
+
 ## Federation boundary
 
 The shell owns authentication and the protected mount point. Projects owns routes and behavior inside it. Remote name, `./Routes`, bootstrap expectations, port, and manifest endpoint are public contracts. A future MFE split needs an independent runtime ownership and deployment reason, not merely a new page.

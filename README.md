@@ -86,6 +86,10 @@ Preserve accessible loading feedback and deterministic tests. For route, bootstr
 
 Meaningful work follows explore, propose, human review, apply, strict validation, repository checks, and archive. Cross-repository changes share one kebab-case ID with the tooling umbrella and every affected repository.
 
+## Shared persistence contract
+
+Future project persistence uses root `projects/{projectId}` records shared by all authenticated users, with no owner filtering. Shell owns the corresponding rules and indexes. This storage contract does not add project listing or editing to the current placeholder. See [architecture](docs/architecture.md).
+
 ## CI and deployment
 
 Firebase workflows validate documentation and OpenSpec before lint, unit tests, and the production build. Pull requests use Hosting preview channels; the main branch targets the configured live Projects site.
